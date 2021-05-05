@@ -1,3 +1,5 @@
+import model.CorrecaoPotassio;
+import model.FontesPotassio;
 import model.CorrecaoFosforo;
 import model.FontesFosforo;
 import model.Nutrientes;
@@ -84,5 +86,34 @@ public class TestBoards {
     Assert.assertEquals(151.94, new CorrecaoFosforo(1260, solo, FontesFosforo.ESCORIA_THOMAS, 70, 1260).calcularCustoAlqueire(),0.1);        
     Assert.assertEquals(54.05, new CorrecaoFosforo(1260, solo, FontesFosforo.ACIDO_FOSFORICO, 70, 1260).calcularCustoAlqueire(),0.1);       
     Assert.assertEquals(156.17, new CorrecaoFosforo(1260, solo, FontesFosforo.MULTIF_MAGNESIANO, 70, 1260).calcularCustoAlqueire(),0.1);
+  }
+
+  @Test
+  public void TestPotassiumCorrectionBoard(){
+    Solo solo = new Solo(8.59, 0.15, 5.76, 1.63, 3.67, 0.0, 5.35);
+
+    // Teste da participação do potássio atual
+    Assert.assertEquals(1.2, new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).participacaoPotassioAtual(), 0.1);
+
+    // Teste da participação do potássio na CTC após correção
+    Assert.assertEquals(3.0, new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).participacaoPotassioCorrecao(), 0.1);
+
+    // Teste da participação do potássio na CTC desejada
+    Assert.assertEquals(3.0, new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).participacaoPotassioPercentualIdeal(), 0.1);
+
+    // Teste da quantidade aplicar do potássio
+    Assert.assertEquals(450.55, new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).quantidadeAplicarElemento(), 0.1);  
+    Assert.assertEquals(502.53, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO, 3.0).quantidadeAplicarElemento(), 0.1); 
+    Assert.assertEquals(1187.80, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO_MAGNESIO, 3.0).quantidadeAplicarElemento(), 0.1); 
+
+    // Teste da quantidade fornecida de potássio
+    Assert.assertArrayEquals(new Object[][] {{new double [] {0.0,0.0}},{new Nutrientes[] {null, null}}},  new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).correcaoElemento());
+    Assert.assertArrayEquals(new Object[][] {{new double[] {85.43049230769232, 0.0}}, {new Nutrientes[] {Nutrientes.ENXOFRE, null}}}, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO, 3.0).correcaoElemento());
+    Assert.assertArrayEquals(new Object[][] {{new double[] {261.3168, 213.80465454545453}}, {new Nutrientes[] {Nutrientes.ENXOFRE, Nutrientes.MAGNESIO}}}, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO_MAGNESIO, 3.0).correcaoElemento());
+
+    // Teste de custo do alqueire
+    Assert.assertEquals(1126.37, new CorrecaoPotassio(2500.00, solo, FontesPotassio.CLORETO_POTASSIO, 3.0).calcularCustoAlqueire(), 0.1);
+    Assert.assertEquals(1256.33, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO, 3.0).calcularCustoAlqueire(), 0.1);
+    Assert.assertEquals(2969.51, new CorrecaoPotassio(2500.00, solo, FontesPotassio.SULFATO_POTASSIO_MAGNESIO, 3.0).calcularCustoAlqueire(), 0.1);
   }
 }
