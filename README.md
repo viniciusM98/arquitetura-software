@@ -128,3 +128,7 @@ ESTRUTURAS CONDICIONAIS:      0
     <li>Os métodos de cada classe foram otimizadoscom com a implementação de interfaces e classes abstratas;</li> 
     <li>As linhas foram reduzidas de 1071 para 866. </li>
   </ul>
+
+<hr width=100%>
+<h2>Atividade 4 - Relatório</h2>
+<p>Não foi encontrado nenhuma dificuldade expressiva dentro do código da Isabela. O único problema seria o operador ternário, pois como mencionado em aula, muitas vezes a compreensão de algum leigo não seria a das melhores, então é sugerido a implementação do IF, porque ele acaba sendo mais compreensível à primeira vista, afinal, o operador ternário continua sendo uma estrutura condicional.</p>
